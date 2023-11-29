@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 
+
 /**
  * struct binary_tree_s - Binary tree node
  *
@@ -42,6 +43,26 @@ int __get_power(int exp);
 size_t __binary_tree_size(const binary_tree_t *tree);
 binary_tree_t *binary_tree_sibling(binary_tree_t *node);
 binary_tree_t *binary_tree_uncle(binary_tree_t *node);
-binary_tree_t *binary_trees_ancestor(const binary_tree_t *first, const binary_tree_t *second);
+binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
+const binary_tree_t *second);
+void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int));
 
+
+/**
+ * struct levelorder_queue_s - Structure for a levelorder queue node
+ * @node: Pointer to the binary tree node
+ * @next: Pointer to the next node in the queue
+ */
+typedef struct levelorder_queue_s
+{
+binary_tree_t *node;
+struct levelorder_queue_s *next;
+} levelorder_queue_t;
+
+levelorder_queue_t *create_node(binary_tree_t *node);
+void free_queue(levelorder_queue_t *head);
+void pint_push(binary_tree_t *node, levelorder_queue_t **head,
+levelorder_queue_t **tail, void (*func)(int));
+void pop(levelorder_queue_t **head);
+void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int));
 #endif /*   _BINARY_TREES_H_  */
